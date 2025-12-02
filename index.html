@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>How to Get Anything You Want in Life?</title>
+
+<style>
+  :root{
+    --gold:#c9a227;
+    --pink:#ff4da6;
+    --pink-deep:#d93d8f;
+    --purple:#7c5cff;
+    --bg:#fff;
+    --ink:#1a1a1a;
+    --muted:#555;
+    --edge:#e5e6ee;
+  }
+  body{
+    margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    display:flex;flex-direction:column;align-items:center;
+    min-height:100vh;
+  }
+  header{text-align:center;padding:28px 20px 14px;max-width:900px}
+  .countdown-box{
+    background:#111;color:#fff;font-size:22px;font-weight:700;
+    padding:14px 28px;border-radius:12px;display:inline-block;margin-bottom:18px;
+  }
+  h1{
+    font-size:34px;font-weight:800;margin:8px 0 10px;line-height:1.2;
+  }
+  .sub{color:var(--muted);font-size:17px;max-width:720px;margin:auto}
+  .deadline{
+    background:#fff5e2;border:1px solid #ffe3a4;
+    padding:10px 14px;border-radius:12px;font-weight:700;
+    display:inline-block;margin-top:10px;color:#654800;
+  }
+
+  /* video */
+  .video-wrapper{
+    width:100%;max-width:900px;margin:22px auto;position:relative;
+    border-radius:14px;overflow:hidden;border:1px solid var(--edge);
+    box-shadow:0 6px 20px rgba(0,0,0,.06)
+  }
+  .video-wrapper iframe{width:100%;height:510px;border:0}
+
+  /* access expired */
+  .expired-box{
+    display:none;text-align:center;
+    background:#1a1a1a;color:#fff;padding:40px 20px;
+    border-radius:16px;margin:40px auto;max-width:700px;
+  }
+
+  /* CTA for free event */
+  .cta-wrap{
+    margin:40px auto;text-align:center;max-width:800px;
+    background:linear-gradient(135deg,#ffe8f3,#fff2f8);
+    border:1px solid #ffd8ea;border-radius:20px;padding:26px;
+    box-shadow:0 10px 26px rgba(255,77,166,.15);
+  }
+  .cta-wrap h2{margin:0;font-size:26px;color:#b82068;font-weight:900}
+  .cta-wrap p{color:#8a1954;font-size:17px;margin:12px 0 16px}
+  .cta-wrap a{
+    background:var(--pink);color:#fff;padding:14px 26px;
+    border-radius:999px;font-size:18px;font-weight:800;
+    text-decoration:none;
+    box-shadow:0 8px 18px rgba(255,77,166,.25);
+  }
+  .cta-wrap a:hover{background:var(--pink-deep)}
+
+  footer{text-align:center;color:#777;margin:30px 0;font-size:14px}
+</style>
+</head>
+<body>
+
+<header>
+  <div id="countdown" class="countdown-box">Loading...</div>
+  <h1>How to Get Anything You Want in Life?</h1>
+  <p class="sub">My 8-year long secret to predictable success — revealed only for this Free Christmas Event for ambitious women who want to get married next year.</p>
+  <div class="deadline">Unlocked only once — timer starts now 🎄✨</div>
+</header>
+
+<!-- MAIN VIDEO -->
+<section class="video-wrapper">
+  <iframe src="https://www.youtube.com/embed/GUeQRNpHWXY"
+    title="How to Get Anything You Want in Life" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen">
+  </iframe>
+</section>
+
+<!-- SECOND VIDEO -->
+<section class="video-wrapper">
+  <iframe src="https://www.youtube.com/embed/TRT008ZbeRc"
+    title="My Healing Story" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen">
+  </iframe>
+</section>
+
+<!-- CTA -->
+<section class="cta-wrap" id="cta">
+  <h2>🎄 Join the Christmas Glow-Up Event</h2>
+  <p>This is for high-achieving single women who want to become wives by next Christmas. Enter the most beautiful, feminine, powerful activation of the year.</p>
+  <a href="https://feminine-dating.thrivecart.com/last-christmas/?coupon=FREE" target="_blank">Join the Free Event →</a>
+</section>
+
+<!-- EXPIRED NOTICE -->
+<div id="expired" class="expired-box">
+  <h2>Access Expired ❌</h2>
+  <p>Your 2-hour viewing window is over. This page unlocks only once per person.  
+     Join our free Christmas Event below 👇</p>
+  <a href="https://feminine-dating.thrivecart.com/last-christmas/?coupon=FREE"
+     style="display:inline-block;margin-top:16px;background:#ff4da6;padding:12px 20px;border-radius:999px;font-weight:800;color:#fff;text-decoration:none;">
+     Join the Free Event →
+  </a>
+</div>
+
+<footer>
+  © Feminine Dating — Christmas Event 2025
+</footer>
+
+<script>
+// -----------------------------
+// 2-HOUR PERSONAL COUNTDOWN
+// stored via IP + cookie backup
+// -----------------------------
+
+const COUNTDOWN_HOURS = 2;
+let userIP = null;
+
+// cookie helpers
+function setCookie(name, value, hours){
+  const d = new Date();
+  d.setTime(d.getTime() + (hours*60*60*1000));
+  document.cookie = `${name}=${value};expires=${d.toUTCString()};path=/`;
+}
+function getCookie(name){
+  const m = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+  return m ? m[2] : null;
+}
+
+// get IP, then start countdown logic
+fetch("https://api.ipify.org?format=json")
+  .then(res => res.json())
+  .then(data => {
+    userIP = data.ip;
+    initCountdown();
+  })
+  .catch(() => {
+    userIP = "fallback-user";
+    initCountdown();
+  });
+
+function initCountdown(){
+  const key = "expiry_" + userIP;
+  let expiry = localStorage.getItem(key) || getCookie(key);
+
+  if(!expiry){
+    // set new expiry 2h from now
+    const newExpiry = Date.now() + COUNTDOWN_HOURS*3600*1000;
+    expiry = newExpiry;
+    localStorage.setItem(key, newExpiry);
+    setCookie(key, newExpiry, COUNTDOWN_HOURS);
+  }
+
+  expiry = parseInt(expiry);
+
+  const countdownEl = document.getElementById("countdown");
+  const expiredEl = document.getElementById("expired");
+  const videos = document.querySelectorAll(".video-wrapper");
+  const cta = document.getElementById("cta");
+
+  function update(){
+    const remaining = expiry - Date.now();
+    if(remaining <= 0){
+      // hide content
+      videos.forEach(v => v.style.display = "none");
+      cta.style.display = "none";
+      countdownEl.style.display = "none";
+      expiredEl.style.display = "block";
+    } else {
+      const s = Math.floor(remaining/1000);
+      const h = Math.floor(s/3600);
+      const m = Math.floor((s%3600)/60);
+      const sec = s%60;
+      countdownEl.textContent = `${h}h ${m}m ${sec}s`;
+    }
+  }
+
+  update();
+  setInterval(update, 1000);
+}
+</script>
+
+</body>
+</html>
