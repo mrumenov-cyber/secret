@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>How to Get Anything You Want in Life?</title>
 
 <style>
@@ -16,251 +16,176 @@
     --muted:#555;
     --edge:#e5e6ee;
   }
-
   body{
-    margin:0;
-    padding:0;
-    background:var(--bg);
-    color:var(--ink);
+    margin:0;padding:0;background:var(--bg);color:var(--ink);
     font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    width:100%;
-    overflow-x:hidden;
+    display:flex;flex-direction:column;align-items:center;
+    min-height:100vh;
   }
-
-  header{
-    text-align:center;
-    padding:28px 16px 14px;
-    max-width:900px;
-    width:100%;
-  }
-
+  header{text-align:center;padding:28px 20px 14px;max-width:900px}
   .countdown-box{
-    background:#111;
-    color:#fff;
-    font-size:22px;
-    font-weight:700;
-    padding:12px 22px;
-    border-radius:12px;
-    display:inline-block;
-    margin-bottom:18px;
+    background:#111;color:#fff;font-size:22px;font-weight:700;
+    padding:14px 28px;border-radius:12px;display:inline-block;margin-bottom:18px;
   }
-
   h1{
-    font-size:32px;
-    font-weight:800;
-    margin:8px 0 12px;
-    line-height:1.2;
-    text-align:center;
-    padding:0 12px;
+    font-size:34px;font-weight:800;margin:8px 0 10px;line-height:1.2;
   }
-
-  .sub{
-    color:var(--muted);
-    font-size:17px;
-    max-width:720px;
-    margin:0 auto;
-    padding:0 12px;
-    line-height:1.45;
-  }
-
+  .sub{color:var(--muted);font-size:17px;max-width:720px;margin:auto}
   .deadline{
-    background:#fff5e2;
-    border:1px solid #ffe3a4;
-    padding:10px 14px;
-    border-radius:12px;
-    font-weight:700;
-    display:inline-block;
-    margin-top:12px;
-    color:#654800;
+    background:#fff5e2;border:1px solid #ffe3a4;
+    padding:10px 14px;border-radius:12px;font-weight:700;
+    display:inline-block;margin-top:10px;color:#654800;
   }
 
-  /* video wrapper */
   .video-wrapper{
-    width:100%;
-    max-width:900px;
-    margin:22px auto;
-    border-radius:14px;
-    overflow:hidden;
-    border:1px solid var(--edge);
-    box-shadow:0 6px 20px rgba(0,0,0,.06);
+    width:100%;max-width:900px;margin:22px auto;position:relative;
+    border-radius:14px;overflow:hidden;border:1px solid var(--edge);
+    box-shadow:0 6px 20px rgba(0,0,0,.06)
   }
-
-  .video-wrapper iframe{
-    width:100%;
-    height:420px;
-    border:0;
-  }
-
-  /* mobile video fix */
-  @media (max-width:600px){
-    .video-wrapper iframe{
-      height:230px;
-    }
-    h1{
-      font-size:26px;
-    }
-    .countdown-box{
-      font-size:18px;
-      padding:10px 18px;
-    }
-  }
-
-  /* CTA box */
-  .cta-container{
-    background: linear-gradient(135deg, #ffe1f1, #ffc9e6);
-    border: 1px solid #f3b3d2;
-    padding: 28px 22px;
-    border-radius: 26px;
-    max-width: 760px;
-    margin: 40px auto;
-    text-align: center;
-    color: #b1246c;
-    box-shadow: 0 10px 26px rgba(0,0,0,0.06);
-    line-height: 1.55;
-    width: calc(100% - 32px);
-  }
-
-  .cta-container h2{
-    font-size:24px;
-    font-weight:800;
-    color:#c22777;
-    margin-bottom:12px;
-  }
-
-  .cta-container p{
-    margin-bottom:16px;
-    color:#a01860;
-  }
-
-  .cta-btn{
-    display:inline-block;
-    background:#ff4da6;
-    color:white;
-    padding:14px 26px;
-    border-radius:14px;
-    text-decoration:none;
-    font-size:17px;
-    font-weight:700;
-    box-shadow:0 6px 18px rgba(255,77,166,0.3);
-    margin-bottom:16px;
-    transition:0.2s;
-  }
-  .cta-btn:hover{
-    background:var(--pink-deep);
-  }
-
-  /* Expired & Extension */
-  .expired-box, .extension-box{
-    display:none;
-    margin:40px auto;
-    max-width:700px;
-    padding:32px 24px;
-    border-radius:16px;
-    text-align:center;
-  }
+  .video-wrapper iframe{width:100%;height:510px;border:0}
 
   .expired-box{
-    background:#1a1a1a;
-    color:white;
+    display:none;text-align:center;
+    background:#1a1a1a;color:#fff;padding:40px 20px;
+    border-radius:16px;margin:40px auto;max-width:700px;
   }
 
   .extension-box{
-    background:#ffe9f5;
-    color:#b71e6f;
+    display:none;text-align:center;
+    background:#ffe9f5;color:#b71e6f;padding:30px 20px;
+    border-radius:16px;margin:40px auto;max-width:700px;
     border:1px solid #ffc8e8;
   }
-
   .extension-box button{
-    background:#ff4da6;
-    color:#fff;
-    border:none;
-    padding:12px 24px;
-    border-radius:14px;
-    font-size:17px;
-    font-weight:700;
-    cursor:pointer;
-    box-shadow:0 6px 18px rgba(255,77,166,0.3);
-    margin-top:10px;
+    background:#ff4da6;color:#fff;border:none;
+    padding:12px 24px;border-radius:14px;font-size:16px;font-weight:700;
+    cursor:pointer;box-shadow:0 6px 18px rgba(255,77,166,0.3);
   }
 
-  footer{
-    text-align:center;
-    color:#777;
-    margin:30px 0;
-    font-size:14px;
-  }
+  footer{text-align:center;color:#777;margin:30px 0;font-size:14px}
 </style>
 </head>
-
 <body>
 
 <header>
   <div id="countdown" class="countdown-box">Loading...</div>
   <h1>How to Get Anything You Want in Life?</h1>
-  <p class="sub">My 8-year long secret to predictable success – for ambitious women who want to live a stable, predictable life of their dreams.</p>
+  <p class="sub">My 8-year long secret to predictable success - for ambitious women who want to live a predictable life of their dreams.</p>
   <div class="deadline">Unlocked only once — timer starts now 🎄✨</div>
 </header>
 
+<!-- MAIN VIDEO -->
 <section class="video-wrapper">
   <iframe src="https://www.youtube.com/embed/GUeQRNpHWXY"
-    allowfullscreen></iframe>
+    title="How to Get Anything You Want in Life" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen">
+  </iframe>
 </section>
 
-<h1>My story started 8 years ago, after sexual trauma changed my identity.</h1>
-<p class="sub">I fully healed bipolar depression and rebuilt my life with the same process. This is my 8-minute hero story from the Joe Dispenza event in Basel 2024.</p>
+<h1 style="max-width:900px;text-align:center;">My story started 8 years ago, after sexual trauma changed my identity.</h1>
+<p class="sub">I fully healed bipolar depression and rebuilt my life with the same process. This is my 8-minute hero story from Joe Dispenza event in Basel 2024, 7 years after I started my journey at home.</p>
 
+<!-- SECOND VIDEO -->
 <section class="video-wrapper">
   <iframe src="https://www.youtube.com/embed/TRT008ZbeRc"
-    allowfullscreen></iframe>
+    title="My Healing Story" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen">
+  </iframe>
 </section>
 
-<!-- CTA ALWAYS VISIBLE -->
-<div class="cta-container">
-  <div style="font-weight:600;font-size:17px;margin-bottom:10px;color:#c22777;">
+<!-- CTA (Always Visible) -->
+<div style="
+  background: linear-gradient(135deg, #ffe1f1, #ffc9e6);
+  border: 1px solid #f3b3d2;
+  padding: 32px 30px;
+  border-radius: 26px;
+  max-width: 760px;
+  margin: 40px auto;
+  text-align: center;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif;
+  color: #b1246c;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.06);
+  line-height: 1.55;
+  font-size: 15px;
+">
+  <div style="font-size: 17px; font-weight: 600; margin-bottom: 10px; color:#c22777;">
     ✨ You Are Invited! ✨
   </div>
 
-  <h2>🎄 The Biggest Christmas Glow-Up Party for High-Achieving Single Women 🎄</h2>
-
-  <p>A special Christmas Party & Gifting Session for ambitious women  
-     who desire love, devotion, and lasting partnership.</p>
-
-  <div style="background:#fff4fa;border:1px solid #f7c2db;padding:14px 20px;border-radius:14px;margin-bottom:22px;">
-    I’ll show you the exact feminine Glow-Up paths that help you  
-    <strong>attract your future husband by end of 2027</strong>  
-    and make this your <strong>last Christmas alone</strong> 💗
+  <div style="font-size: 22px; font-weight: 700; margin-bottom: 12px; color:#c22777;">
+    🎄 The Biggest Christmas Glow-Up Party for High-Achieving Single Women 🎄
   </div>
 
-  <a class="cta-btn" href="https://feminine-dating.thrivecart.com/last-christmas/?coupon=FREE">
+  <div style="font-size: 16px; margin-bottom: 18px;">
+    A one-of-a-kind Christmas Party & Gifting Session created for ambitious women  
+    who want love, devotion, and a joyful, lasting partnership.
+  </div>
+
+  <div style="
+    background:#fff4fa;
+    border:1px solid #f7c2db;
+    padding: 14px 20px;
+    border-radius: 14px;
+    font-size: 15px;
+    margin-bottom: 24px;
+    box-shadow:0 4px 12px rgba(255,200,230,0.3);
+  ">
+    I’ll show you the exact feminine Glow-Up paths that help you  
+    <strong>attract your future husband by the end of 2027</strong>  
+    and make this your <strong>last Christmas alone</strong> 💗  
+    The same shifts that have already transformed 500+ love stories.
+  </div>
+
+  <a href="https://feminine-dating.thrivecart.com/last-christmas/?coupon=FREE"
+     style="
+       display:inline-block;
+       background:#ff4da6;
+       color:white;
+       padding:13px 26px;
+       border-radius:14px;
+       text-decoration:none;
+       font-size:16px;
+       font-weight:600;
+       box-shadow:0 6px 18px rgba(255,77,166,0.3);
+       margin-bottom:16px;
+     ">
     ✨ Join the Party - Enter for FREE
   </a>
 
-  <p style="font-size:14px;color:#a01860;margin-bottom:20px;">
-    Invite 3 girlfriends & enter the exclusive Christmas Prize Draw 🎁  
-  </p>
+  <div style="font-size: 14px; margin-bottom: 22px; color:#c22777;">
+    Invite 3 single girlfriends & enter the exclusive Christmas Prize Draw 🎁  
+    (Money, luxury discounts & surprise gifts inside!)
+  </div>
 
-  <div style="font-size:14px;background:#fff0f7;border:1px solid #f2c6da;padding:13px 18px;border-radius:13px;">
-    If your heart is whispering “yes”… trust it.  
-    Step inside and open the chapter where love finally finds you ❤️
+  <div style="
+    font-size: 14px;
+    background:#fff0f7;
+    border:1px solid #f2c6da;
+    padding:13px 18px;
+    border-radius:13px;
+    max-width:650px;
+    margin:0 auto;
+    box-shadow:0 4px 14px rgba(0,0,0,0.04);
+  ">
+    If your heart is whispering “yes”…  
+    trust it. Step inside, activate your feminine energy,  
+    and open the chapter where love finally meets you ❤️
   </div>
 </div>
 
-<!-- EXTENSION -->
+<!-- EXTENSION OFFER -->
 <div id="extension" class="extension-box">
   <h2>⏳ Need more time?</h2>
   <p>You can extend your access ONE LAST TIME for 1 more hour.</p>
   <button id="extend-btn">Yes, extend my access →</button>
 </div>
 
-<!-- EXPIRED -->
+<!-- EXPIRED NOTICE -->
 <div id="expired" class="expired-box">
   <h2>Access Expired ❌</h2>
-  <p>Your viewing window is over.  
+  <p>Your viewing window is over. This page only unlocks once per person.  
      Join our free Christmas Event below 👇</p>
-  <a class="cta-btn" href="https://feminine-dating.thrivecart.com/last-christmas/?coupon=FREE">
+  <br>
+  <a href="https://feminine-dating.thrivecart.com/last-christmas/?coupon=FREE"
+     style="display:inline-block;margin-top:16px;background:#ff4da6;padding:12px 20px;border-radius:999px;font-weight:800;color:#fff;text-decoration:none;">
      Join the Free Event →
   </a>
 </div>
@@ -291,7 +216,7 @@ function getCookie(name){
 fetch("https://api.ipify.org?format=json")
   .then(res => res.json())
   .then(data => { userIP = data.ip; initTimer(); })
-  .catch(() => { userIP = "fallback"; initTimer(); });
+  .catch(() => { userIP = "fallback-user"; initTimer(); });
 
 function initTimer(){
   const expiryKey = "expiry_" + userIP;
@@ -317,15 +242,13 @@ function initTimer(){
 
   extendBtn.onclick = () => {
     if(extensionUsed) return;
-
     extensionUsed = true;
     localStorage.setItem(extensionUsedKey, "true");
 
     const newExpiry = Date.now() + EXTENSION_HOURS*3600*1000;
-    expiry = newExpiry;
-
     localStorage.setItem(expiryKey, newExpiry);
     setCookie(expiryKey, newExpiry, EXTENSION_HOURS);
+    expiry = newExpiry;
 
     extensionBox.style.display = "none";
     countdown.style.display = "inline-block";
@@ -333,7 +256,6 @@ function initTimer(){
 
   function update(){
     const remaining = expiry - Date.now();
-
     if(remaining <= 0){
 
       videos.forEach(v => v.style.display = "none");
