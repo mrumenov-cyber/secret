@@ -22,7 +22,11 @@
     display:flex;flex-direction:column;align-items:center;
     min-height:100vh;
   }
-  header{text-align:center;padding:28px 20px 14px;max-width:900px}
+  header{
+    text-align:center;
+    padding:28px 20px 14px;
+    max-width:900px;
+  }
   .countdown-box{
     background:#111;color:#fff;font-size:22px;font-weight:700;
     padding:14px 28px;border-radius:12px;display:inline-block;margin-bottom:18px;
@@ -30,11 +34,34 @@
   h1{
     font-size:34px;font-weight:800;margin:8px 0 10px;line-height:1.2;
   }
-  .sub{color:var(--muted);font-size:17px;max-width:720px;margin:auto}
+  .sub{
+    color:var(--muted);font-size:17px;max-width:720px;margin:0 auto 10px auto;
+  }
   .deadline{
     background:#fff5e2;border:1px solid #ffe3a4;
     padding:10px 14px;border-radius:12px;font-weight:700;
     display:inline-block;margin-top:10px;color:#654800;
+  }
+
+  /* Extension box moved under title/subtitle */
+  .extension-box{
+    display:none;
+    text-align:center;
+    background:#ffe9f5;
+    color:#b71e6f;
+    padding:20px 18px;
+    border-radius:16px;
+    margin:18px auto 0 auto;
+    max-width:700px;
+    border:1px solid #ffc8e8;
+    font-size:15px;
+    line-height:1.5;
+  }
+  .extension-box button{
+    background:#ff4da6;color:#fff;border:none;
+    padding:10px 22px;border-radius:14px;font-size:15px;font-weight:700;
+    cursor:pointer;box-shadow:0 6px 18px rgba(255,77,166,0.3);
+    margin-top:10px;
   }
 
   .video-wrapper{
@@ -42,24 +69,17 @@
     border-radius:14px;overflow:hidden;border:1px solid var(--edge);
     box-shadow:0 6px 20px rgba(0,0,0,.06)
   }
-  .video-wrapper iframe{width:100%;height:510px;border:0}
+  /* Responsive video */
+  .video-wrapper iframe{
+    width:100%;
+    aspect-ratio:16/9;
+    border:0;
+  }
 
   .expired-box{
     display:none;text-align:center;
     background:#1a1a1a;color:#fff;padding:40px 20px;
     border-radius:16px;margin:40px auto;max-width:700px;
-  }
-
-  .extension-box{
-    display:none;text-align:center;
-    background:#ffe9f5;color:#b71e6f;padding:30px 20px;
-    border-radius:16px;margin:40px auto;max-width:700px;
-    border:1px solid #ffc8e8;
-  }
-  .extension-box button{
-    background:#ff4da6;color:#fff;border:none;
-    padding:12px 24px;border-radius:14px;font-size:16px;font-weight:700;
-    cursor:pointer;box-shadow:0 6px 18px rgba(255,77,166,0.3);
   }
 
   footer{text-align:center;color:#777;margin:30px 0;font-size:14px}
@@ -71,6 +91,18 @@
   <div id="countdown" class="countdown-box">Loading...</div>
   <h1>How to Get Anything You Want in Life?</h1>
   <p class="sub">My 8-year long secret to predictable success - for ambitious women who want to live a predictable life of their dreams.</p>
+
+  <!-- EXTENSION OFFER: appears when access first expires -->
+  <div id="extension" class="extension-box">
+    <div style="font-weight:700;margin-bottom:6px;">
+      Your access to the videos has expired 🕒
+    </div>
+    <div>
+      You can extend your viewing window <strong>one last time</strong> for 1 more hour.
+    </div>
+    <button id="extend-btn">✨ Extend my access for 1 more hour →</button>
+  </div>
+
   <div class="deadline">Unlocked only once — timer starts now 🎄✨</div>
 </header>
 
@@ -171,13 +203,6 @@
   </div>
 </div>
 
-<!-- EXTENSION OFFER -->
-<div id="extension" class="extension-box">
-  <h2>⏳ Need more time?</h2>
-  <p>You can extend your access ONE LAST TIME for 1 more hour.</p>
-  <button id="extend-btn">Yes, extend my access →</button>
-</div>
-
 <!-- EXPIRED NOTICE -->
 <div id="expired" class="expired-box">
   <h2>Access Expired ❌</h2>
@@ -240,19 +265,24 @@ function initTimer(){
   const extensionBox = document.getElementById("extension");
   const extendBtn = document.getElementById("extend-btn");
 
-  extendBtn.onclick = () => {
-    if(extensionUsed) return;
-    extensionUsed = true;
-    localStorage.setItem(extensionUsedKey, "true");
+  if (extendBtn) {
+    extendBtn.onclick = () => {
+      if(extensionUsed) return;
+      extensionUsed = true;
+      localStorage.setItem(extensionUsedKey, "true");
 
-    const newExpiry = Date.now() + EXTENSION_HOURS*3600*1000;
-    localStorage.setItem(expiryKey, newExpiry);
-    setCookie(expiryKey, newExpiry, EXTENSION_HOURS);
-    expiry = newExpiry;
+      const newExpiry = Date.now() + EXTENSION_HOURS*3600*1000;
+      localStorage.setItem(expiryKey, newExpiry);
+      setCookie(expiryKey, newExpiry, EXTENSION_HOURS);
+      expiry = newExpiry;
 
-    extensionBox.style.display = "none";
-    countdown.style.display = "inline-block";
-  };
+      // Hide extension, hide expired (safety) and SHOW videos again
+      extensionBox.style.display = "none";
+      if (expiredBox) expiredBox.style.display = "none";
+      countdown.style.display = "inline-block";
+      videos.forEach(v => v.style.display = "block");
+    };
+  }
 
   function update(){
     const remaining = expiry - Date.now();
